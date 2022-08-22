@@ -23,6 +23,7 @@ string cta-text:
 integer index:
 ftd.image-src thumbnail:
 boolean is-last:
+boolean is-first: false
 
 -- tc list list-tc:
 
@@ -31,6 +32,7 @@ index: 1
 cta-text: Lorem ipsum dolor sit amet
 thumbnail: $assets.files.slide-show-image-2.png
 is-last: false
+is-first: true
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
 incididunt ut labore et dolore magna aliqua
@@ -232,6 +234,7 @@ copy: $obj.body
 index: $obj.index
 is-last: $obj.is-last
 cta-text: $obj.cta-text
+is-first: $obj.is-first
 
 --- container: change
 
@@ -280,7 +283,8 @@ string copy:
 integer index:
 string cta-text:
 boolean is-last:
-boolean show-data: false
+boolean is-first: false
+boolean show-data: $is-first
 width: fill
 z-index: 0
 
