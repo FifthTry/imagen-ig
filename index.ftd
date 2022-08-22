@@ -4,16 +4,13 @@
 -- import: fifthtry.github.io/package-doc/doc as pd
 -- import: fifthtry.github.io/package-doc/code-block as cb
 
--- integer show: 1
+
 
 -- boolean is-mobile: false
 
 -- is-mobile: true
 if: $ftd.device == mobile
 
--- integer image-hover: 1
-
--- integer show-body: 1
 
 
 -- record tc:
@@ -154,6 +151,8 @@ optional body body:
 optional ftd.color bg-color: $fpm.color.main.background.step-1
 optional string title-copy:
 tc list list-title-copy:
+integer image-hover: 1
+integer show: 1
 width: fill
 background-color: $bg-color
 
@@ -163,6 +162,8 @@ body: $body
 sub-title: $sub-title
 title-copy: $title-copy
 list-title-copy: $list-title-copy
+image-hover: $image-hover
+show: $show
 
 --- slideshow-mobile: $title
 if: $is-mobile
@@ -170,7 +171,8 @@ body: $body
 sub-title: $sub-title
 title-copy: $title-copy
 list-title-copy: $list-title-copy
-
+image-hover: $image-hover
+show: $show
 
 
 
@@ -187,6 +189,8 @@ optional body body:
 optional ftd.color bg-color: $fpm.color.main.background.step-1
 optional string title-copy:
 tc list list-title-copy:
+integer image-hover: 
+integer show: 
 width: fill
 background-color: $bg-color
 padding-vertical: 70
@@ -227,7 +231,7 @@ role: $fpm.type.label-big
 color: $fpm.color.main.text
 margin-bottom: 40
 
---- list-loop-one:
+--- list-loop:
 $loop$: $list-title-copy as $obj
 title: $obj.title
 copy: $obj.body
@@ -235,6 +239,9 @@ index: $obj.index
 is-last: $obj.is-last
 cta-text: $obj.cta-text
 is-first: $obj.is-first
+$image-hover: $image-hover
+$show: $show
+
 
 --- container: change
 
@@ -243,10 +250,11 @@ width: percent 65
 id: right-section
 margin-top: 90
 
---- list-loop-image-one:
+--- list-loop-image:
 $loop$: $list-title-copy as $obj
 thumbnail: $obj.thumbnail
 index: $obj.index
+$image-hover: $image-hover
 
 
 
@@ -256,10 +264,11 @@ index: $obj.index
 
 
 
-
--- ftd.row list-loop-image-one:
+-- ftd.row list-loop-image:
 ftd.image-src thumbnail:
 integer index:
+integer $image-hover:
+
 
 --- ftd.image:
 if: $image-hover == $index 
@@ -277,7 +286,7 @@ height: auto
 
 
 
--- ftd.column list-loop-one:
+-- ftd.column list-loop:
 string title:
 string copy:
 integer index:
@@ -285,6 +294,8 @@ string cta-text:
 boolean is-last:
 boolean is-first: false
 boolean show-data: $is-first
+integer $image-hover: 
+integer $show: 
 width: fill
 z-index: 0
 
@@ -293,7 +304,6 @@ width: fill
 $on-click$: $show = $index
 $on-click$: toggle $show-data
 $on-click$: $image-hover = $index
-
 
 --- ftd.row:
 width: fill
@@ -348,23 +358,21 @@ border-color: $fpm.color.main.border
 --- ftd.column:
 if: $show-data
 
-
 --- ftd.column:
 if: $show == $index
+;id: data-container
 width: fill
-id: body-container
 spacing: 20
 padding-right: 16
 padding-top: 8
 padding-bottom: 24
-
 
 --- ftd.text: $copy
 role: $fpm.type.copy-tight
 color: $fpm.color.main.text
 width: fill
 
---- container: body-container
+;--- container: data-container
 
 --- ftd.row:
 width: fill
@@ -392,6 +400,8 @@ optional ftd.color bg-color: $fpm.color.main.background.step-1
 optional string title-copy:
 tc list list-title-copy:
 width: fill
+integer show: 
+integer image-hover: 
 padding-vertical: 48
 padding-horizontal: 24
 
@@ -399,10 +409,8 @@ padding-horizontal: 24
 width: fill
 id: left-section
 
-
 --- ftd.column:
 width: fill
-
 
 --- ftd.text: $title
 width: fill
@@ -423,7 +431,6 @@ role: $fpm.type.label-big
 color: $fpm.color.main.text
 margin-bottom: 40
 
-
 --- list-loop-mobile:
 $loop$: $list-title-copy as $obj
 cta-text: $obj.cta-text
@@ -432,6 +439,14 @@ title: $obj.title
 copy: $obj.body
 index: $obj.index
 is-last: $obj.is-last
+$image-hover: $image-hover
+$show: $show
+
+
+
+
+
+
 
 
 
@@ -443,6 +458,8 @@ ftd.image-src thumbnail:
 ftd.color text-color: $fpm.color.main.text
 ftd.color text-hover: $fpm.color.main.text-strong
 integer index:
+integer $show: 
+integer $image-hover:
 string cta-text:
 boolean is-last:
 boolean show-data: false
@@ -457,7 +474,7 @@ $on-click$: $show = $index
 
 --- ftd.row:
 width: fill
-id: change
+id: change-container
 border-top: 2
 border-bottom if $is-last: 2
 border-color: $fpm.color.main.background.step-2
@@ -471,7 +488,7 @@ style: semi-bold
 width: fill
 color: $fpm.color.main.text
 
---- container: change
+--- container: change-container
 
 --- ftd.row:
 align: right
@@ -510,7 +527,6 @@ if: $show-data
 --- ftd.column:
 if: $show == $index
 width: fill
-id: body-container
 spacing: 20
 padding-right: 16
 padding-top: 8
@@ -521,7 +537,6 @@ role: $fpm.type.copy-tight
 color: $fpm.color.main.text
 width: fill
 
---- container: body-container
 
 --- ftd.row:
 width: fill
@@ -537,9 +552,42 @@ white-space: nowrap
 role: $fpm.type.fine-print
 color: $fpm.color.main.cta-primary.base
 
---- container: body-container
-
 --- ftd.image:
 src: $thumbnail
 width: fill
 height: auto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
