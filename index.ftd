@@ -1,1 +1,542 @@
--- ds.page: hello
+-- import: fifthtry.github.io/imagen-ig/assets
+-- import: fpm
+-- import: fifthtry.github.io/typography as tf
+-- import: fifthtry.github.io/package-doc/doc as pd
+-- import: fifthtry.github.io/package-doc/code-block as cb
+
+-- integer show: 1
+
+-- boolean is-mobile: false
+
+-- is-mobile: true
+if: $ftd.device == mobile
+
+-- integer image-hover: 1
+
+-- integer show-body: 1
+
+
+-- record tc:
+caption title:
+body body:
+string cta-text:
+integer index:
+ftd.image-src thumbnail:
+boolean is-last:
+
+-- tc list list-tc:
+
+-- list-tc: Lorem ipsum dolor sit amet
+index: 1
+cta-text: Lorem ipsum dolor sit amet
+thumbnail: $assets.files.slide-show-image-2.png
+is-last: false
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua
+
+-- list-tc: Lorem ipsum dolor sit amet
+index: 2
+cta-text: Lorem ipsum dolor sit amet
+thumbnail: $assets.files.slide-show-image-1.png
+is-last: false
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua
+
+-- list-tc: Lorem ipsum dolor sit amet
+index: 3
+cta-text: Lorem ipsum dolor sit amet
+thumbnail: $assets.files.slide-show-image-2.png
+is-last: true
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua
+
+
+
+-- ftd.column:
+width: fill
+padding-horizontal: 50
+padding-horizontal if $is-mobile: 20
+background-color: $fpm.color.main.background.base
+
+-- pd.package: `imagen-ig`
+name: fifthtry.github.io/imagen-ig
+
+This component can be used as a `imagen-ig` component on your page.
+
+
+-- pd.component: `imagen-ig`
+name: fifthtry.github.io/show.imagen-ig
+
+This is the main `imagen-ig`.
+
+How to use?
+
+Add below lines into `FPM.ftd` file:
+
+
+-- cb.code:
+lang: ftd
+
+\-- fpm.dependency: fifthtry.github.io/imagen-ig as ig
+
+\-- fpm.auto-import: ig
+
+
+-- pd.hidden-code: List of items
+
+
+\-- record tc:
+caption title:
+body body:
+integer index:
+boolean is-last:
+
+\-- tc list list-tc:
+
+\-- list-tc: Commit to the process
+index: 1
+is-last: false
+
+FifthTry has a review based workflow for documentation, just like Github Pull Request.
+
+\-- list-tc: Own the changes
+index: 2
+is-last: false
+
+
+FifthTry has a review based workflow for documentation, just like Github Pull Request. 
+
+\-- list-tc: Deploy when everything’s ready
+index: 3
+is-last: true
+
+
+FifthTry has a review based workflow for documentation, just like Github Pull Request.
+
+
+-- pd.output: Basic usage example
+reference: $assets.files.assets.slideshow-demo.png
+reference-width: fill
+
+\-- ig.slideshow: Continous Translation
+list-title-copy: $list-tc
+
+FifthTry has a review based workflow for documentation, just like Github Pull Request. 
+
+
+
+-- slideshow: Lorem ipsum 
+list-title-copy: $list-tc
+sub-title: Lorem ipsum dolor sit amet
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+incididunt ut labore et dolore magna aliqua
+
+
+
+
+
+
+
+
+
+
+-- ftd.column slideshow:
+caption title:
+string sub-title:
+optional body body:
+optional ftd.color bg-color: $fpm.color.main.background.step-1
+optional string title-copy:
+tc list list-title-copy:
+width: fill
+background-color: $bg-color
+
+--- slideshow-desktop: $title
+if: not $is-mobile
+body: $body
+sub-title: $sub-title
+title-copy: $title-copy
+list-title-copy: $list-title-copy
+
+--- slideshow-mobile: $title
+if: $is-mobile
+body: $body
+sub-title: $sub-title
+title-copy: $title-copy
+list-title-copy: $list-title-copy
+
+
+
+
+
+
+
+
+
+
+-- ftd.row slideshow-desktop:
+caption title:
+string sub-title:
+optional body body:
+optional ftd.color bg-color: $fpm.color.main.background.step-1
+optional string title-copy:
+tc list list-title-copy:
+width: fill
+background-color: $bg-color
+padding-vertical: 70
+padding-horizontal: 48
+
+--- ftd.column:
+height: fill
+width: fill
+
+--- ftd.row:
+align: center
+id: change
+
+--- ftd.row:
+width: percent 45
+id: left-section
+padding-right: 45
+
+--- ftd.column:
+width: fill
+
+--- ftd.text: $title
+width: fill
+role: $fpm.type.label-small
+style: semi-bold
+color: $fpm.color.main.text-strong
+margin-bottom: 12
+
+--- ftd.text: $sub-title
+width: fill
+role: $fpm.type.heading-medium
+color: $fpm.color.main.text-strong
+margin-bottom: 16
+
+--- ftd.text:
+text: $body
+role: $fpm.type.label-big
+color: $fpm.color.main.text
+margin-bottom: 40
+
+--- list-loop-one:
+$loop$: $list-title-copy as $obj
+title: $obj.title
+copy: $obj.body
+index: $obj.index
+is-last: $obj.is-last
+cta-text: $obj.cta-text
+
+--- container: change
+
+--- ftd.row:
+width: percent 65
+id: right-section
+margin-top: 90
+
+--- list-loop-image-one:
+$loop$: $list-title-copy as $obj
+thumbnail: $obj.thumbnail
+index: $obj.index
+
+
+
+
+
+
+
+
+
+
+-- ftd.row list-loop-image-one:
+ftd.image-src thumbnail:
+integer index:
+
+--- ftd.image:
+if: $image-hover == $index 
+src: $thumbnail
+width: fill
+height: auto
+
+
+
+
+
+
+
+
+
+
+
+-- ftd.column list-loop-one:
+string title:
+string copy:
+integer index:
+string cta-text:
+boolean is-last:
+boolean show-data: false
+width: fill
+z-index: 0
+
+--- ftd.row:
+width: fill
+$on-click$: $show = $index
+$on-click$: toggle $show-data
+$on-click$: $image-hover = $index
+
+
+--- ftd.row:
+width: fill
+id: change
+border-top: 2
+border-color: $fpm.color.main.border
+border-color if $show == $index: $fpm.color.main.cta-primary.base
+padding-vertical: 12
+padding-horizontal: 8
+background-color if $MOUSE-IN: $fpm.color.main.background.base
+
+--- ftd.text: $title
+role: $fpm.type.copy-tight
+style: semi-bold
+width: fill
+color: $fpm.color.main.text
+
+--- container: change
+
+--- ftd.row:
+align: right
+height: fill
+
+--- ftd.row:
+align: center
+width: fill
+
+--- ftd.image:
+if: not $show-data
+src: $assets.files.down.svg
+width: 16
+$on-click$: $show = $index
+$on-click$: $image-hover = $index
+padding-top: 4
+
+--- ftd.image:
+if: $show-data
+src: $assets.files.up.svg
+width: 16
+$on-click$: $show = $index
+$on-click$: $image-hover = $index
+padding-top: 4
+
+--- container: ftd.main
+
+--- ftd.column:
+width: fill
+padding-horizontal: 8
+border-bottom if $is-last: 2
+border-color: $fpm.color.main.border
+
+--- ftd.column:
+if: $show-data
+
+
+--- ftd.column:
+if: $show == $index
+width: fill
+id: body-container
+spacing: 20
+padding-right: 16
+padding-top: 8
+padding-bottom: 24
+
+
+--- ftd.text: $copy
+role: $fpm.type.copy-tight
+color: $fpm.color.main.text
+width: fill
+
+--- container: body-container
+
+--- ftd.row:
+width: fill
+spacing: 12
+
+--- ftd.text: $cta-text
+role: $fpm.type.fine-print
+style: medium
+color: $fpm.color.main.cta-primary.base
+white-space: nowrap
+
+--- ftd.text: ->
+role: $fpm.type.fine-print
+color: $fpm.color.main.cta-primary.base
+
+
+
+
+
+-- ftd.row slideshow-mobile:
+caption title:
+string sub-title:
+optional body body:
+optional ftd.color bg-color: $fpm.color.main.background.step-1
+optional string title-copy:
+tc list list-title-copy:
+width: fill
+padding-vertical: 48
+padding-horizontal: 24
+
+--- ftd.row:
+width: fill
+id: left-section
+
+
+--- ftd.column:
+width: fill
+
+
+--- ftd.text: $title
+width: fill
+role: $fpm.type.label-small
+style: semi-bold
+color: $fpm.color.main.text-strong
+margin-bottom: 12
+
+--- ftd.text: $sub-title
+width: fill
+role: $fpm.type.heading-medium
+color: $fpm.color.main.text-strong
+margin-bottom: 16
+
+--- ftd.text:
+text: $body
+role: $fpm.type.label-big
+color: $fpm.color.main.text
+margin-bottom: 40
+
+
+--- list-loop-mobile:
+$loop$: $list-title-copy as $obj
+cta-text: $obj.cta-text
+thumbnail: $obj.thumbnail
+title: $obj.title
+copy: $obj.body
+index: $obj.index
+is-last: $obj.is-last
+
+
+
+
+-- ftd.column list-loop-mobile:
+string title:
+string copy:
+ftd.image-src thumbnail:
+ftd.color text-color: $fpm.color.main.text
+ftd.color text-hover: $fpm.color.main.text-strong
+integer index:
+string cta-text:
+boolean is-last:
+boolean show-data: false
+width: fill
+z-index: 0
+
+--- ftd.row:
+width: fill
+$on-click$: toggle $show-data
+$on-click$: $image-hover = $index
+$on-click$: $show = $index
+
+--- ftd.row:
+width: fill
+id: change
+border-top: 2
+border-bottom if $is-last: 2
+border-color: $fpm.color.main.background.step-2
+padding-vertical: 12
+padding-horizontal: 8
+
+
+--- ftd.text: $title
+role: $fpm.type.copy-tight
+style: semi-bold
+width: fill
+color: $fpm.color.main.text
+
+--- container: change
+
+--- ftd.row:
+align: right
+height: fill
+
+--- ftd.row:
+align: center
+width: fill
+
+--- ftd.image:
+if: not $show-data
+src: $assets.files.down.svg
+width: 16
+$on-click$: $show = $index
+$on-click$: $image-hover = $index
+padding-top: 4
+
+--- ftd.image:
+if: $show-data
+src: $assets.files.up.svg
+width: 16
+$on-click$: $show = $index
+$on-click$: $image-hover = $index
+padding-top: 4
+
+--- container: ftd.main
+
+--- ftd.column:
+width: fill
+padding-horizontal: 8
+
+--- ftd.column:
+if: $show-data
+
+
+--- ftd.column:
+if: $show == $index
+width: fill
+id: body-container
+spacing: 20
+padding-right: 16
+padding-top: 8
+padding-bottom: 24
+
+--- ftd.text: $copy
+role: $fpm.type.copy-tight
+color: $fpm.color.main.text
+width: fill
+
+--- container: body-container
+
+--- ftd.row:
+width: fill
+spacing: 12
+
+--- ftd.text: $cta-text
+role: $fpm.type.fine-print
+style: medium
+color: $fpm.color.main.cta-primary.base
+white-space: nowrap
+
+--- ftd.text: ->
+role: $fpm.type.fine-print
+color: $fpm.color.main.cta-primary.base
+
+--- container: body-container
+
+--- ftd.image:
+src: $thumbnail
+width: fill
+height: auto
