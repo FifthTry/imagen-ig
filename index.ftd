@@ -120,7 +120,6 @@ FifthTry has a review based workflow for documentation, just like Github Pull Re
 
 
 -- pd.output: Basic usage example
-reference: $assets.files.assets.slideshow-demo.png
 reference-width: fill
 
 \-- ig.slideshow: Continous Translation
